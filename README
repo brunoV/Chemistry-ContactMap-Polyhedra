@@ -1,0 +1,68 @@
+NAME
+    Chemistry::ContactMap::Polyhedra - Calculate contacts with the Voroni
+    Polyhedra method
+
+VERSION
+    version 0.100890
+
+SYNOPSIS
+        my $cmap = Chemistry::ContactMap::Polyhedra->new( structures => [ $mol1, $mol2 ] );
+
+        foreach my $contact ( @{ $cmap->contacts } ) {
+
+            # get the intervening atoms
+            my ($atom1, $atom2) = $contact->atoms;
+
+            say $_->name, $_->number for ($atom1, $atom2);
+
+            say $contact->length(), $contact->attr('area'), $contact->type();
+        }
+
+DESCRIPTION
+    This class implements the calculation of inter-atom and inter-residue
+    non-covalent contacts between macromolecules using the Voronoi Polyhedra
+    Method.
+
+    It consumes the Chemistry::ContactMap interface, interacts seamlessly
+    with PerlMol, and uses Bio::Tools::Run::QCons, a Perl wrapper over
+    Tsai's QCons program.
+
+ATTRIBUTES
+  structures
+    Two Chemistry::MacroMol objects whose contact information you want to
+    calculate. Required.
+
+  add_bonds_to_structures
+    A boolean value that sets whether to add the atom-atom contacts found
+    between the macromolecules for each atom pair, as a Chemistry::Bond
+    object of order one. It is set as 0 by default.
+
+  contacts
+    An array reference of Chemistry::Bond objects that represent the
+    non-covalent (order 0) bonds between atom-atom pairs that are found to
+    be interacting.
+
+    The contact type (Van der Waals, Ionic, Hydrogen bond or Hydrophobic),
+    the total contact area and the bond length are saved in the object.
+
+    See Chemistry::Bond for details on how to use the bond class.
+
+  residue_contacts
+    An array reference with residue-residue contact information. This data
+    structure is identical to that returned by Bio::Tools::Run::QCons, see
+    the docs there to find out how to extract the relevant information from
+    it.
+
+  atom_contacts
+    An array reference with atom-atom contact information. Identical to that
+    returned by Bio::Tools::Run::QCons. See its doc for more information.
+
+AUTHOR
+      Bruno Vecchi <vecchi.b gmail.com>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2010 by Bruno Vecchi.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
