@@ -138,6 +138,16 @@ __END__
         say $contact->length(), $contact->attr('area'), $contact->type();
     }
 
+=head1 DESCRIPTION
+
+This class implements the calculation of inter-atom and inter-residue
+non-covalent contacts between macromolecules using the Voronoi Polyhedra
+Method.
+
+It consumes the L<Chemistry::ContactMap> interface, interacts seamlessly
+with L<PerlMol>, and uses L<Bio::Tools::Run::QCons>, a Perl wrapper over
+Tsai's QCons program.
+
 =attr structures
 
 Two L<Chemistry::MacroMol> objects whose contact information you want to
